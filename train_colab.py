@@ -14,17 +14,18 @@ from yolo3.utils import get_random_data
 
 
 def _main():
-    annotation_path = '/content/gdrive/My Drive/Colab Notebooks/YOLOv3_working/heads_dataset/labels/HeadsTraining_colab.csv'
+    data_dir='/content/gdrive/My Drive/Colab Notebooks/YOLOv3_working/heads_dataset'
+    annotation_path = data_dir+'/labels/HeadsTraining_modif.csv'
     log_dir = 'logs/000/'
-    classes_path = '/content/gdrive/My Drive/Colab Notebooks/YOLOv3_working/heads_dataset/labels/classes.txt'
-    anchors_path = '/model_transfered/tiny_yolo_anchors_heads.txt'
+    classes_path = data_dir+'/labels/classes.txt'
+    anchors_path = 'model_data/tiny_yolo_anchors_heads.txt'
     class_names = get_classes(classes_path)
     num_classes = len(class_names)
     anchors = get_anchors(anchors_path)
 
     input_shape = (416,416) # multiple of 32, hw
 
-    is_tiny_version = len(anchors)==6 # default setting
+    is_tiny_version = len(anchors)==2 # default setting
     if is_tiny_version:
         model = create_tiny_model(input_shape, anchors, num_classes,
             freeze_body=2, weights_path='model_data/tiny_yolo_weights.h5')
